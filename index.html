@@ -114,17 +114,50 @@ footer{margin-top:40px;font-size:.82rem;color:var(--mute)}
 .rate .tabs button[aria-selected=true]{background:none;color:var(--ink);font-weight:700;text-decoration-color:var(--acc)}
 
 
+
+/* profil ringkas */
+section{padding-top:56px;padding-bottom:56px}
+.profil{grid-template-columns:minmax(170px,220px) 1fr;gap:44px}
+.pic{border-radius:14px;box-shadow:none;border:1px solid var(--line)}
+.isi{max-width:820px}
+h2.nama{font-size:clamp(2rem,4.6vw,3.2rem)}
+.head{margin-bottom:12px;align-items:flex-start}
+.tag{font-size:.95rem;margin-top:6px}
+.head .btn{padding:6px 13px;font-size:.82rem}
+.item{display:grid;grid-template-columns:170px 1fr;gap:4px 24px;padding:14px 0;border-top:1px solid var(--line)}
+.item h3{font-size:.8rem;font-weight:600;color:var(--mute);margin:3px 0 0}
+.item .row{gap:8px}
+.chip{padding:3px 10px;font-size:.8rem}
+.chip:hover{background:var(--bg);color:inherit;transform:none}
+ul.exp{display:grid;gap:5px}
+ul.exp li{padding:0;border:0;font-size:.9rem;line-height:1.45}
+.item .btn{padding:5px 12px;font-size:.82rem;font-weight:500}
+.rates{display:flex;flex-wrap:wrap;gap:8px 36px}
+.price{border:0;background:none;padding:0;border-radius:0}
+.price:hover{transform:none;border-color:transparent}
+.price small{font-size:.8rem}
+.price strong{font-size:clamp(1.3rem,4.5vw,1.7rem);margin-top:2px}
+.rate .tabs{margin:0 0 8px}
+.note{font-size:.76rem;margin-top:8px}
+@media(max-width:900px){.profil{grid-template-columns:1fr;gap:18px}.pic{max-width:140px}}
+@media(max-width:640px){.item{grid-template-columns:1fr;gap:6px}.item h3{margin:0}}
+
+/* alur halaman */
+html{scroll-snap-type:none}
+.fabs[hidden]{display:none}
+.fabs{right:18px}
+.view>section{min-height:0;justify-content:flex-start;padding-top:28px}
+.bk{padding:24px 8vw 0}
+.back{padding:6px 13px;font-size:.82rem}
+.pilih{display:grid;gap:22px;margin:26px 0 30px;max-width:620px}
+.hasil{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.view .kontak{margin-top:10px}
+.res{align-items:flex-start}
+.res small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 </style>
 </head>
 <body>
-<nav id="nav" aria-label="Navigasi segmen"></nav>
-<div class="count" id="count"></div>
-<div id="prog"></div>
-<div class="fabs" id="fabs"><button class="btn" type="button" onclick="openDrawer()">Cari komika</button><a class="btn pri" id="fab" href="#">Booking</a></div>
-<div id="drawer" hidden><div class="sheet" id="finder" role="dialog" aria-label="Cari komika">
-<div class="row" style="justify-content:space-between;align-items:center"><h3 style="margin:0;font-size:1.3rem">Cari komika sesuai acaramu</h3><button class="btn" type="button" onclick="closeDrawer()">Tutup</button></div>
-<p class="note" id="jumlah"></p>
-<div class="fgrid"><div id="filters"></div><div id="hasil" class="hasil"></div></div></div></div>
+<div class="fabs" id="fabs" hidden><a class="btn pri" id="fab" href="#kontak">Booking</a></div>
 <main id="app"></main>
 
 <script>
@@ -653,11 +686,10 @@ function dummy(nama, i) {
 function fb(im) { im.onerror = null; im.src = dummy(im.dataset.n, +im.dataset.i); }  // foto belum ada: pakai dummy
 
 function hero() {
-  return `<section id="s1" data-title="Beranda">
+  return `<section id="hero" data-title="Beranda">
     <h1>Rate Card Komika ${esc(KOMUNITAS.nama)}</h1>
     <p class="lead"><strong style="color:var(--ink)">${esc(KOMUNITAS.judul)}</strong><br>${esc(KOMUNITAS.deskripsi)}</p>
-    <div class="row"><a class="btn" href="#s2">Lihat semua profil</a><button class="btn" type="button" onclick="openDrawer()">Cari komika sesuai kebutuhanmu</button></div>
-    <p class="hint">Gulir ke bawah atau tekan tombol panah ↑ ↓ untuk berpindah segmen.</p>
+    <div class="row"><button class="btn pri" type="button" data-nav="pilih">Cari komika sesuai kebutuhanmu</button></div>
   </section>`;
 }
 
@@ -667,25 +699,25 @@ function profil(raw, i) {
   return `<section id="s${n}" class="${i % 2 ? "" : "alt"}" data-title="${esc(k.nama)}">
     <div class="profil">
       <figure class="pic"><img src="${esc(raw.foto || dummy(raw.nama, i))}" alt="Foto ${esc(k.nama)}" data-n="${esc(raw.nama)}" data-i="${i}" onerror="fb(this)"></figure>
-      <div>
+      <div class="isi">
         <div class="head">
           <div><h2 class="nama">${esc(k.nama)}</h2><p class="tag">${esc(k.tagline)}</p></div>
-          <div class="row"><button class="btn" type="button" onclick="openDrawer()">← Cari komika lain</button>${sosBtns(k.sosmed)}</div>
+          <div class="row">${sosBtns(k.sosmed)}</div>
         </div>
-        <div class="grid">
-          <div class="box"><h3>Demografi usia penonton</h3>
-            <div class="row">${k.penonton.map(e => `<span class="chip">${esc(e)}</span>`).join("")}</div>
-          </div>
-          <div class="box"><h3>Bisa tampil di event</h3>
-            <div class="row">${k.event.map(e => `<span class="chip">${esc(e)}</span>`).join("")}</div>
-          </div>
-          <div class="box"><h3>5 pengalaman terbaik terkini</h3>
-            <ul class="exp">${k.pengalaman.slice(0, 5).map(p => `<li>${esc(p)}</li>`).join("")}</ul>
-          </div>
-          <div class="box"><h3>Link penampilan</h3>
-            <div class="row">${k.video.map(v => `<a class="btn" href="${esc(v.url)}" target="_blank" rel="noopener">▶ ${esc(v.label)}</a>`).join("")}</div>
-          </div>
-          <div class="box rate"><h3>Rate card stand-up comedy</h3>
+        <div class="item box"><h3>Demografi usia penonton</h3>
+          <div class="row">${k.penonton.map(e => `<span class="chip">${esc(e)}</span>`).join("")}</div>
+        </div>
+        <div class="item box"><h3>Bisa tampil di event</h3>
+          <div class="row">${k.event.map(e => `<span class="chip">${esc(e)}</span>`).join("")}</div>
+        </div>
+        <div class="item box"><h3>5 pengalaman terbaik terkini</h3>
+          <ul class="exp">${k.pengalaman.slice(0, 5).map(p => `<li>${esc(p)}</li>`).join("")}</ul>
+        </div>
+        <div class="item box"><h3>Link penampilan</h3>
+          <div class="row">${k.video.map(v => `<a class="btn" href="${esc(v.url)}" target="_blank" rel="noopener">▶ ${esc(v.label)}</a>`).join("")}</div>
+        </div>
+        <div class="item box rate"><h3>Rate card stand-up comedy</h3>
+          <div>
             <div class="tabs" role="tablist">${tabs.map((t, j) => `<button role="tab" aria-selected="${j === 0}" data-tab="${t}">${esc(KATEGORI[t])}</button>`).join("")}</div>
             ${tabs.map((t, j) => `<div class="rates" data-panel="${t}" ${j ? "hidden" : ""}>
               <div class="price"><small>Durasi 7–10 menit</small><strong data-v="${k.rate?.[t]?.["7-10"] || 0}">${rp(k.rate?.[t]?.["7-10"])}</strong></div>
@@ -724,43 +756,25 @@ function kontak() {
   </section>`;
 }
 
-$("#app").innerHTML = hero() + KOMIKA.map(profil).join("") + kontak();
-
-$("#app").firstElementChild.id = "hero";
-const secs = [...document.querySelectorAll("section")];
-$("#nav").innerHTML = secs.map((s, i) => `<a href="#${s.id}" aria-label="${esc(s.dataset.title)}"><span>${esc(s.dataset.title)}</span></a>`).join("");
-const dots = [...document.querySelectorAll("#nav a")];
-if (secs.length > 14) $("#nav").style.display = "none";  // terlalu banyak titik: pakai pencarian
-
-/* interaksi tambahan */
-const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
-function countUp(el) {
-  const v = +el.dataset.v; if (!v || reduce) return;
-  const t0 = performance.now();
-  (function f(t) { const p = Math.min(1, (t - t0) / 700); el.textContent = rp(Math.round(v * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(f); })(t0);
-}
-$("#fab").href = "#s" + secs.length;
-const prog = $("#prog");
-addEventListener("scroll", () => prog.style.width = scrollY / (document.documentElement.scrollHeight - innerHeight) * 100 + "%", { passive: true });
-const h = $("#hero");
-h.addEventListener("mousemove", e => { const r = h.getBoundingClientRect(); h.style.setProperty("--mx", (e.clientX - r.left) + "px"); h.style.setProperty("--my", (e.clientY - r.top) + "px"); });
-document.querySelectorAll(".pic").forEach(p => {
-  p.addEventListener("mousemove", e => { const r = p.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; p.style.transform = `perspective(700px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`; });
-  p.addEventListener("mouseleave", () => p.style.transform = "");
-});
-/* pencarian komika */
+/* =====================================================
+   4. ALUR HALAMAN: beranda → pilih → hasil → profil / kontak
+   ===================================================== */
+/* alamat profil: #komika/nama-komika (bisa diganti lewat field slug: "..." di data komika) */
+const slugify = t => t.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const SLUG = KOMIKA.map(k => k.slug || slugify(k.nama));
 const F = { durasi: "7-10", event: "", budget: 0, sort: "abjad" };
 const OPSI = {
   durasi: [["7-10", "7–10 menit"], ["15", "15 menit"]],
   event:  [["", "Semua tipe"], ...Object.keys(TIPE_EVENT).map(t => [t, t])],
-  budget: [[0, "Semua budget"], [1, "Di bawah Rp1.500.000"], [2, "Rp1.500.000 – Rp3.000.000"], [3, "Di atas Rp3.000.000"]],
-  sort:   [["abjad", "Abjad A–Z"], ["murah", "Termurah"], ["mahal", "Termahal"]]
+  budget: [[0, "Semua budget"], [1, "Di bawah Rp1.500.000"], [2, "Rp1.500.000 – Rp3.000.000"], [3, "Di atas Rp3.000.000"]]
 };
+const SORT = [["abjad", "Abjad A–Z"], ["murah", "Termurah"], ["mahal", "Termahal"]];
 const RANGE = [null, [0, 1499999], [1500000, 3000000], [3000001, Infinity]];
-const JUDUL = { durasi: "Durasi penampilan", event: "Tipe acara", budget: "Budget", sort: "Urutkan" };
-$("#filters").innerHTML = Object.keys(OPSI).map(g => `<div class="fg"><h3>${JUDUL[g]}</h3><div class="row">${OPSI[g].map(([v, l]) => `<button type="button" class="opt" data-g="${g}" data-v="${esc(v)}">${esc(l)}</button>`).join("")}</div></div>`).join("") + `<button class="btn" type="button" id="reset">Reset filter</button>`;
+const grup = (g, list, judul) => `<div class="fg"><h3>${judul}</h3><div class="row">${list.map(([v, l]) =>
+  `<button type="button" class="opt" data-g="${g}" data-v="${esc(v)}" aria-pressed="${String(F[g]) === String(v)}">${esc(l)}</button>`).join("")}</div></div>`;
+const bar = (...b) => `<div class="row">${b.map(([n, t]) => `<button class="btn back" type="button" data-nav="${n}">${t}</button>`).join("")}</div>`;
 
-function cari() {
+function daftar() {
   const list = KOMIKA.map((raw, i) => {
     const k = lengkap(raw);
     if (F.event && !k.event.includes(F.event)) return null;
@@ -775,68 +789,91 @@ function cari() {
   if (F.sort === "abjad") list.sort(nm);
   if (F.sort === "murah") list.sort((a, b) => ((a.p ?? Infinity) - (b.p ?? Infinity)) || nm(a, b));
   if (F.sort === "mahal") list.sort((a, b) => ((b.p ?? -1) - (a.p ?? -1)) || nm(a, b));
-  $("#hasil").innerHTML = list.length ? list.map(({ raw, i, k, p }) => `<button class="res" data-go="s${i + 2}"><img src="${esc(raw.foto || dummy(raw.nama, i))}" alt="" data-n="${esc(raw.nama)}" data-i="${i}" onerror="fb(this)"><span><b>${esc(raw.nama)}</b><small>${esc(k.tagline)}</small><em>${p === null ? "Hubungi kami" : (F.event ? "" : "Mulai ") + rp(p)}</em></span></button>`).join("")
-    : `<p class="kosong">Belum ada komika yang cocok. Coba longgarkan budget atau tipe acara.</p>`;
-  $("#jumlah").textContent = `${list.length} dari ${KOMIKA.length} komika cocok · harga untuk durasi ${F.durasi === "15" ? "15" : "7–10"} menit`;
-  document.querySelectorAll(".opt").forEach(b => b.setAttribute("aria-pressed", String(F[b.dataset.g]) === b.dataset.v));
+  return list;
 }
-const dr = $("#drawer");
-function openDrawer() { dr.hidden = false; document.body.style.overflow = "hidden"; cari(); }
-function closeDrawer() { dr.hidden = true; document.body.style.overflow = ""; }
-$("#finder").addEventListener("click", e => {
-  const o = e.target.closest(".opt");
-  if (o) { F[o.dataset.g] = o.dataset.g === "budget" ? +o.dataset.v : o.dataset.v; cari(); return; }
-  if (e.target.id === "reset") { Object.assign(F, { durasi: "7-10", event: "", budget: 0, sort: "abjad" }); cari(); return; }
-  const b = e.target.closest("[data-go]");
-  if (b) {
-    closeDrawer();
-    const sec = document.getElementById(b.dataset.go);
-    sec.scrollIntoView();
-    if (F.event) sec.querySelector(`[data-tab="${TIPE_EVENT[F.event]}"]`)?.click();
+function kartu() {
+  const list = daftar();
+  return list.length ? list.map(({ raw, i, k, p }) => `<button class="res" type="button" data-nav="komika/${SLUG[i]}"><img src="${esc(raw.foto || dummy(raw.nama, i))}" alt="" data-n="${esc(raw.nama)}" data-i="${i}" onerror="fb(this)"><span><b>${esc(raw.nama)}</b><small>${esc(k.tagline)}</small><em>${p === null ? "Hubungi kami" : (F.event ? "" : "Mulai ") + rp(p)}</em></span></button>`).join("")
+    : `<p class="kosong">Belum ada komika yang cocok dengan pilihan ini. Coba ubah budget atau tipe acara.</p>`;
+}
+
+function vPilih() {
+  return `<div class="view"><section>${bar(["home", "← Halaman utama"])}
+    <h2 class="nama" style="margin:22px 0 6px">Cari komika sesuai kebutuhanmu</h2>
+    <p class="tag">Pilih durasi, tipe acara, dan budget.</p>
+    <div class="pilih">${grup("durasi", OPSI.durasi, "Durasi penampilan")}${grup("event", OPSI.event, "Tipe acara")}${grup("budget", OPSI.budget, "Budget")}</div>
+    <div class="row"><button class="btn pri" type="button" data-nav="hasil">OK, tampilkan komika</button></div></section></div>`;
+}
+function vHasil() {
+  const lab = (o, v) => o.find(x => x[0] === v)[1];
+  return `<div class="view"><section>${bar(["home", "← Halaman utama"], ["pilih", "Ubah pilihan"])}
+    <h2 class="nama" style="margin:22px 0 6px">Komika yang cocok</h2>
+    <p class="tag">${lab(OPSI.durasi, F.durasi)} · ${F.event || "Semua tipe acara"} · ${lab(OPSI.budget, F.budget)}</p>
+    <div class="pilih" style="margin:18px 0">${grup("sort", SORT, "Urutkan")}</div>
+    <div class="hasil" id="hasil">${kartu()}</div></section></div>`;
+}
+const vProfil = i => `<div class="view"><div class="bk">${bar(["hasil", "← Kembali ke hasil"], ["home", "Halaman utama"])}</div>${profil(KOMIKA[i], i)}</div>`;
+const vKontak = () => `<div class="view"><div class="bk">${bar(["home", "← Halaman utama"])}</div>${kontak()}</div>`;
+
+let cur = -1;
+const go = v => { location.hash = v === "home" ? "" : v; };
+function show() {
+  const h = location.hash.slice(1), i = h.startsWith("komika/") ? SLUG.indexOf(decodeURIComponent(h.slice(7))) : -1, ada = KOMIKA[i] !== undefined;
+  cur = ada ? i : cur;
+  $("#app").innerHTML = h === "pilih" ? vPilih() : h === "hasil" ? vHasil() : h === "kontak" ? vKontak() : ada ? vProfil(i) : hero();
+  $("#fabs").hidden = !(h === "pilih" || h === "hasil" || ada);
+  scrollTo(0, 0);
+  void document.body.offsetHeight;
+  document.querySelectorAll("#app section").forEach(s => s.classList.add("in"));
+  if (ada && F.event) $("#app").querySelector(`[data-tab="${TIPE_EVENT[F.event]}"]`)?.click();
+  document.querySelectorAll(".rates:not([hidden]) strong").forEach(countUp);
+  const f = $("#form");
+  if (f) { if (KOMIKA[cur]) f.komika.value = KOMIKA[cur].nama; f.durasi.selectedIndex = F.durasi === "15" ? 1 : 0; }
+}
+addEventListener("hashchange", show);
+
+$("#app").addEventListener("click", e => {
+  const t = e.target.closest(".tabs button");
+  if (t) {
+    const b = t.closest(".rate");
+    b.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === t));
+    b.querySelectorAll("[data-panel]").forEach(p => p.hidden = p.dataset.panel !== t.dataset.tab);
+    b.querySelectorAll(".rates:not([hidden]) strong").forEach(countUp);
+    return;
   }
+  const o = e.target.closest(".opt");
+  if (o) {
+    const g = o.dataset.g;
+    F[g] = g === "budget" ? +o.dataset.v : o.dataset.v;
+    document.querySelectorAll(`.opt[data-g="${g}"]`).forEach(b => b.setAttribute("aria-pressed", String(F[g]) === b.dataset.v));
+    if (g === "sort") $("#hasil").innerHTML = kartu();
+    return;
+  }
+  const n = e.target.closest("[data-nav]");
+  if (n) go(n.dataset.nav);
 });
-dr.addEventListener("click", e => { if (e.target === dr) closeDrawer(); });
-addEventListener("keydown", e => { if (e.key === "Escape") closeDrawer(); });
-
-/* tab kategori rate card */
-document.querySelectorAll(".tabs").forEach(t => t.addEventListener("click", e => {
-  const b = e.target.closest("button"); if (!b) return;
-  const sec = t.closest(".rate");
-  t.querySelectorAll("button").forEach(x => x.setAttribute("aria-selected", x === b));
-  sec.querySelectorAll("[data-panel]").forEach(p => p.hidden = p.dataset.panel !== b.dataset.tab);
-  sec.querySelectorAll(".rates:not([hidden]) strong").forEach(countUp);
-}));
-
-/* segmen aktif (yang melewati garis tengah layar) */
-const io = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  const i = secs.indexOf(e.target);
-  dots.forEach((d, j) => d.classList.toggle("on", i === j));
-  $("#fabs").classList.toggle("hide", i === secs.length - 1);
-}), { rootMargin: "-45% 0px -45% 0px" });
-/* munculkan isi segmen begitu mulai terlihat */
-const rv = new IntersectionObserver(es => es.forEach(e => {
-  if (!e.isIntersecting) return;
-  e.target.classList.add("in");
-  e.target.querySelectorAll(".rates:not([hidden]) strong").forEach(countUp);
-}), { threshold: 0.05 });
-secs.forEach(s => { io.observe(s); rv.observe(s); });
-
-/* navigasi keyboard */
-addEventListener("keydown", e => {
-  if (/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
-  const cur = dots.findIndex(d => d.classList.contains("on"));
-  const go = j => { e.preventDefault(); secs[Math.max(0, Math.min(secs.length - 1, j))].scrollIntoView(); };
-  if (e.key === "ArrowDown" || e.key === "PageDown") go(cur + 1);
-  if (e.key === "ArrowUp" || e.key === "PageUp") go(cur - 1);
-});
-
-/* form kontak -> WhatsApp */
-$("#form").addEventListener("submit", e => {
+$("#app").addEventListener("submit", e => {
+  if (e.target.id !== "form") return;
   e.preventDefault();
   const f = new FormData(e.target);
   window.open(waLink(`Halo ${KOMUNITAS.nama}, saya ${f.get("nama")}.\nAcara: ${f.get("acara")}\nKomika: ${f.get("komika")}\n${f.get("durasi")}\n${f.get("pesan")}`), "_blank");
 });
+/* efek ringan: cahaya di beranda, foto miring mengikuti kursor */
+$("#app").addEventListener("mousemove", e => {
+  const h = $("#hero");
+  if (h) { const r = h.getBoundingClientRect(); h.style.setProperty("--mx", (e.clientX - r.left) + "px"); h.style.setProperty("--my", (e.clientY - r.top) + "px"); }
+  const p = e.target.closest(".pic");
+  if (p && !reduce) { const r = p.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; p.style.transform = `perspective(700px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`; }
+});
+$("#app").addEventListener("mouseout", e => { const p = e.target.closest(".pic"); if (p) p.style.transform = ""; });
+
+const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+function countUp(el) {
+  const v = +el.dataset.v; if (!v || reduce) return;
+  const t0 = performance.now();
+  (function f(t) { const p = Math.min(1, (t - t0) / 700); el.textContent = rp(Math.round(v * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(f); })(t0);
+}
+show();
 </script>
 </body>
 </html>
