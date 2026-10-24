@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rate Card Komika Standupindo Jogja</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#fff;--bg2:#f4f5f7;--ink:#14171f;--mute:#5d6472;--line:#e3e6eb;--acc:#ffd23f;--accInk:#14171f}
+@media (prefers-color-scheme:dark){:root{--bg:#101218;--bg2:#181b23;--ink:#f2f3f6;--mute:#9aa1b0;--line:#2a2e39}}
+*{box-sizing:border-box;margin:0}
+html{scroll-snap-type:y proximity;scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+section{min-height:100vh;scroll-snap-align:start;padding:72px 8vw 72px 8vw;display:flex;flex-direction:column;justify-content:center}
+.alt{background:var(--bg2)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border:1.5px solid var(--ink);border-radius:999px;text-decoration:none;font-size:.9rem;font-weight:600;background:transparent;color:var(--ink);cursor:pointer;font-family:inherit;transition:background .15s,color .15s}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:var(--accInk)}
+.btn.pri:hover{filter:brightness(.95);background:var(--acc);color:var(--accInk)}
+.row{display:flex;flex-wrap:wrap;gap:10px}
+h1{font-size:clamp(2.6rem,7.5vw,6rem);line-height:1;font-weight:800;letter-spacing:-.03em;max-width:14ch}
+h2.nama{font-size:clamp(2.2rem,5.5vw,4.5rem);line-height:1;font-weight:800;letter-spacing:-.03em}
+h3{font-size:1rem;font-weight:800;margin-bottom:12px}
+.lead{font-size:1.15rem;color:var(--mute);max-width:52ch;margin:24px 0 32px}
+.profil{display:grid;grid-template-columns:minmax(220px,300px) 1fr;gap:44px;align-items:start}
+.pic{aspect-ratio:4/5;border-radius:18px;overflow:hidden;border:1.5px solid var(--line);transition:transform .15s;background:var(--bg2);box-shadow:10px 10px 0 var(--acc)}
+.pic img{width:100%;height:100%;object-fit:cover;display:block}
+.box{opacity:0;transform:translateY(14px);transition:opacity .5s,transform .5s}
+.in .box{opacity:1;transform:none}.in .box:nth-child(2){transition-delay:.1s}.in .box:nth-child(3){transition-delay:.2s}.in .box:nth-child(4){transition-delay:.3s}
+#hero{background:radial-gradient(circle 320px at var(--mx,72%) var(--my,28%),rgba(255,210,63,.28),transparent 70%)}
+#prog{position:fixed;top:0;left:0;height:4px;background:var(--acc);width:0;z-index:30}
+.fabs{position:fixed;right:44px;bottom:18px;display:flex;gap:10px;z-index:20}
+.fabs .btn{background:var(--bg);box-shadow:0 4px 14px rgba(0,0,0,.18)}
+.fabs .pri{background:var(--acc)}
+.fabs.hide #fab{display:none}
+#drawer{position:fixed;inset:0;background:rgba(10,12,18,.72);z-index:40;display:flex;align-items:center;justify-content:center;padding:20px}
+#drawer[hidden]{display:none}
+.sheet{background:var(--bg);border-radius:20px;padding:24px;max-width:860px;width:100%;max-height:90vh;overflow:auto}
+.thumbs{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:12px;margin-top:14px}
+.thumbs button{border:0;background:none;cursor:pointer;color:var(--ink);font:600 .85rem inherit;font-family:inherit;text-align:left;padding:0}
+.thumbs img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;border:2px solid transparent;display:block;margin-bottom:6px;transition:transform .15s,border-color .15s}
+.thumbs button:hover img,.thumbs button:focus-visible img{transform:translateY(-4px);border-color:var(--acc)}
+.fgrid{display:grid;grid-template-columns:250px 1fr;gap:28px;margin-top:14px}
+#filters{display:grid;gap:18px;align-content:start}
+.fg h3{font-size:.82rem;color:var(--mute);margin-bottom:8px}
+.opt{padding:7px 13px;border:1.5px solid var(--line);border-radius:999px;background:var(--bg);color:var(--ink);font:500 .85rem inherit;font-family:inherit;cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--ink)}
+.opt[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.hasil{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;align-content:start}
+.res{display:flex;gap:12px;align-items:center;text-align:left;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:14px;padding:10px;cursor:pointer;font-family:inherit;transition:transform .15s,border-color .15s}
+.res:hover{transform:translateY(-3px);border-color:var(--ink)}
+.res img{width:62px;aspect-ratio:4/5;object-fit:cover;border-radius:9px;flex:none}
+.res span{display:grid;gap:2px}.res small{color:var(--mute);font-size:.78rem;line-height:1.3}.res em{font-style:normal;font-weight:800}
+.kosong{color:var(--mute);grid-column:1/-1}
+@media(max-width:760px){.fgrid{grid-template-columns:1fr}}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;border:0;padding:0;border-radius:0;margin-bottom:16px}
+.tabs button{border:1.5px solid var(--line);background:var(--bg);padding:9px 16px;border-radius:999px;font-weight:500;transition:.15s}
+.tabs button:hover{border-color:var(--ink)}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:600}
+select{font:inherit;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+.chip{transition:background .15s,transform .15s}.chip:hover{background:var(--acc);color:var(--accInk);transform:translateY(-2px)}
+.price{transition:transform .15s,border-color .15s}.price:hover{transform:translateY(-3px);border-color:var(--ink)}
+@media(max-width:900px){.profil{grid-template-columns:1fr}.pic{max-width:260px}.fabs{right:14px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}.box{opacity:1;transform:none}}
+.hint{margin-top:40px;color:var(--mute);font-size:.9rem}
+/* profil */
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:28px}
+.tag{color:var(--mute);margin-top:8px;max-width:50ch}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:28px 40px}
+.box{border-top:2px solid var(--ink);padding-top:14px}
+.bar{display:grid;grid-template-columns:110px 1fr 40px;gap:10px;align-items:center;font-size:.9rem;margin-bottom:8px}
+.bar i{display:block;height:8px;background:var(--line);border-radius:9px;overflow:hidden}
+.bar b{display:block;height:100%;background:var(--ink);width:0;transition:width .9s ease}
+.chip{padding:5px 12px;border:1px solid var(--line);background:var(--bg);border-radius:999px;font-size:.85rem}
+ul.exp{list-style:none;padding:0}
+ul.exp li{padding:9px 0;border-bottom:1px solid var(--line);font-size:.95rem}
+ul.exp li:last-child{border:0}
+.rate{grid-column:1/-1}
+.tabs{display:inline-flex;border:1.5px solid var(--ink);border-radius:999px;padding:3px;margin-bottom:16px;flex-wrap:wrap}
+.tabs button{border:0;background:none;font:600 .88rem inherit;font-family:inherit;color:var(--ink);padding:8px 16px;border-radius:999px;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--ink);color:var(--bg)}
+.rates{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.rates[hidden]{display:none}
+.price{border:1.5px solid var(--line);background:var(--bg);border-radius:14px;padding:20px 22px}
+.price small{color:var(--mute);font-weight:500}
+.price strong{display:block;font-size:clamp(1.2rem,5.2vw,1.8rem);letter-spacing:-.02em;margin-top:6px;white-space:nowrap}
+.note{font-size:.82rem;color:var(--mute);margin-top:10px}
+.cta{margin-top:26px}
+/* nav */
+nav{position:fixed;right:18px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:9px;z-index:10}
+nav a{width:11px;height:11px;border-radius:50%;border:2px solid var(--ink);background:transparent;display:block;transition:.2s;position:relative}
+nav a.on{background:var(--acc);transform:scale(1.35)}
+nav a span{position:absolute;right:22px;top:50%;transform:translateY(-50%);white-space:nowrap;background:var(--ink);color:var(--bg);font-size:.78rem;padding:3px 9px;border-radius:6px;opacity:0;pointer-events:none;transition:.15s}
+nav a:hover span,nav a:focus-visible span{opacity:1}
+.count{position:fixed;left:18px;bottom:16px;font-size:.8rem;color:var(--mute);z-index:10;font-weight:600}
+/* kontak */
+.kontak{display:grid;grid-template-columns:minmax(240px,420px) 1fr;gap:48px;align-items:center}
+.foto{aspect-ratio:4/5;border-radius:18px;background:var(--bg2) center/cover;border:1.5px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--mute);font-size:.9rem;text-align:center;padding:20px}
+.info p{margin:6px 0;color:var(--mute)}
+.info p b{color:var(--ink)}
+form{margin-top:28px;display:grid;gap:10px;max-width:460px}
+input,textarea{font:inherit;padding:11px 14px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+footer{margin-top:40px;font-size:.82rem;color:var(--mute)}
+@media(max-width:760px){.kontak{grid-template-columns:1fr}nav{right:8px}nav a span{display:none}.bar{grid-template-columns:90px 1fr 38px}section{padding:64px 7vw 56px}}
+</style>
+</head>
+<body>
+<nav id="nav" aria-label="Navigasi segmen"></nav>
+<div class="count" id="count"></div>
+<div id="prog"></div>
+<div class="fabs" id="fabs"><button class="btn" type="button" onclick="openDrawer()">Cari komika</button><a class="btn pri" id="fab" href="#">Booking</a></div>
+<div id="drawer" hidden><div class="sheet" id="finder" role="dialog" aria-label="Cari komika">
+<div class="row" style="justify-content:space-between;align-items:center"><h3 style="margin:0;font-size:1.3rem">Cari komika sesuai acaramu</h3><button class="btn" type="button" onclick="closeDrawer()">Tutup</button></div>
+<p class="note" id="jumlah"></p>
+<div class="fgrid"><div id="filters"></div><div id="hasil" class="hasil"></div></div></div></div>
+<main id="app"></main>
+
+<script>
+/* =====================================================
+   1. PENGATURAN KOMUNITAS (edit bagian ini)
+   ===================================================== */
+const KOMUNITAS = {
+  nama: "Standupindo Jogja",
+  judul: "Masalah menghibur dan menghasilkan tawa, serahkan pada ahlinya.",
+  deskripsi: "Kenalkan kami, Komunitas Standupindo Jogja, komunitas yang telah menghasilkan banyak komika yang sudah melanglang buana di industri komedi nusantara. Booking kami untuk acara kamu agar meriah dan penuh dengan sukacita.",
+  foto: "foto/komunitas.jpg",     // taruh file komunitas.jpg di folder "foto" (di samping file HTML)
+  hp: "0851-8907-6637",
+  wa: "6285189076637",            // format internasional tanpa + dan tanpa 0 di depan
+  email: "standupindojgj@gmail.com",                      // alamat email komunitas
+  alamat: "Yogyakarta, Daerah Istimewa Yogyakarta",
+  sosmed: {
+    instagram: "https://instagram.com/standupindo_jgj"
+  }
+};
+
+/* =====================================================
+   2. DATA KOMIKA (tambah komika baru di sini)
+   Salin satu blok { ... }, tempel di bawahnya, lalu ganti isinya.
+   ===================================================== */
+const KOMIKA = [
+  {
+    nama: "Akhyar Purlista",
+    foto: "foto/akhyar.jpg",
+    tagline: "Saya adalah ahlinya menghibur penonton. Baik itu dari interaksi, komedi improvisasi, dan keanehan dalam cerita.",
+    sosmed: { instagram: "https://instagram.com/kambingalaska" },
+    penonton: ["Pelajar (13–18 tahun)", "Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)", "Dewasa (40+ tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Opener stand up comedy show “Komedian Cilik”, Hifdzi Khoir (2023)",
+      "Guest stand up comedy “Gala Dinner PIT IKPAMI VII Yogyakarta”, IKPAMI (2023)",
+      "Performer Stand Up Comedy Ekspectanica Yogyakarta 2024, Ekspectanica (2024)",
+      "Opener Stand Up Comedy Tour “Grateful”, Mal Jupri (2024)",
+      "Guest Stand Up Comedy Gala Dinner Dinas PU Bandung, Dinas PU Bandung (2024)"
+    ],
+    video: [
+      { label: "Potongan penampilan 1", url: "https://www.instagram.com/reel/C1rBbiFh9wu/" },
+      { label: "Potongan penampilan 2", url: "https://www.instagram.com/reel/C5MKsAvSFsT/" },
+      { label: "Potongan penampilan 3", url: "https://www.instagram.com/reel/DFDbHVpzN7B/" }
+    ],
+    rate: { sekolah: { "7-10": 1250000, "15": 1500000 }, korporat: { "7-10": 1750000, "15": 2000000 } }
+  },
+  {
+    nama: "Teo Jogsel",
+    foto: "foto/teo.jpg",
+    tagline: "Wong ko ngene kok di bundling bundling ke, mbok kiro rinso.",
+    sosmed: { instagram: "https://instagram.com/teojogsel", tiktok: "https://tiktok.com/@teojogsel" },
+    penonton: ["Mahasiswa (19–24 tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "FON Akhir Tahun 2025",
+      "Jambore Stand Up Indo",
+      "Dagelan Rebon"
+    ],
+    video: [
+      { label: "Penampilan 1", url: "https://www.instagram.com/reel/DegBk3BRNvp/" },
+      { label: "Penampilan 2", url: "https://www.instagram.com/reel/Derxu32z899/" },
+      { label: "Penampilan 3", url: "https://www.instagram.com/reel/DWvH6qYk_3R/" }
+    ],
+    rate: { sekolah: { "7-10": 1500000, "15": 2000000 }, korporat: { "7-10": 3000000, "15": 4000000 } }
+  },
+  {
+    nama: "Pandudunia",
+    foto: "foto/pandu.jpg",
+    tagline: "Saya adalah penulis buku, konten kreator, mantan penyiar radio dan seorang komika yang biasa membawa keresahan soal relationship, keluarga dan trend kekinian.",
+    sosmed: { instagram: "https://instagram.com/pandudunia_", tiktok: "https://tiktok.com/@pandudunia_" },
+    penonton: ["Pelajar (13–18 tahun)", "Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)", "Dewasa (40+ tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Opener Mens Rea Jogja by Pandji Pragiwaksono (2025)",
+      "Preshow SUCI 12 Kompas TV (2026)",
+      "Penampil Standupfest by Standup Indonesia (2025)",
+      "Penampil Jambore bu Standup Indonesia (2024)",
+      "Opener Tur “Ibu” Jogja by Praz Teguh (2022)"
+    ],
+    video: [
+      { label: "Kompilasi tawa dan testimoni", url: "https://www.instagram.com/reel/DWd5Hpjifkc/" },
+      { label: "Seserahan Pernikahan", url: "https://www.instagram.com/reel/DViIbLAiYhF/" },
+      { label: "Menghibur Brand Nutriflex", url: "https://www.instagram.com/reel/DWAD85HkyX6/" }
+    ],
+    rate: { sekolah: { "7-10": 2000000, "15": 3000000 }, korporat: { "7-10": 3000000, "15": 4000000 } }
+  },
+  {
+    nama: "Salahudin",
+    foto: "foto/salahudin.jpg",
+    tagline: "Clean, tapi mikir dikit gak apa-apa.",
+    sosmed: { instagram: "https://instagram.com/msalahudin9393" },
+    penonton: ["Dewasa muda (25–40 tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Jambore Standupindo (2026)",
+      "Ari Kriting “Mungkin Ada Benarnya” (2026)",
+      "BPJS Ketenagakerjaan Klaten dan Boyolali “Migunani Kagem Sesami” (2026)",
+      "SUN Standupindo Jogja (2025)",
+      "FON Standupindo Jogja (2023)"
+    ],
+    video: [
+      { label: "Penampilan 1", url: "https://drive.google.com/file/d/1hRPAfAKEtFuyoSGjq5ZpfI7v_x9bAINh/view?usp=drivesdk" },
+      { label: "Penampilan 2", url: "https://drive.google.com/file/d/1jjdjn_JnoFhrmWxHWWoi2LGig_9K7loW/view?usp=drivesdk" },
+      { label: "Penampilan 3", url: "https://drive.google.com/file/d/18bI-CV4L1pfHcb_0jUB5K_LA_qXXEeV5/view?usp=drivesdk" }
+    ],
+    rate: { sekolah: { "7-10": 2000000, "15": 3000000 }, korporat: { "7-10": 4000000, "15": 5000000 } }
+  },
+  {
+    nama: "Mayang Elifa",
+    foto: "foto/mayang.jpeg",
+    tagline: "Observasi, mengeluh, dan edukasi kesehatan tipis-tipis dengan sudut pandang dokter umum.",
+    sosmed: { instagram: "https://instagram.com/mayangelifa", tiktok: "https://tiktok.com/@mayanqute" },
+    penonton: ["Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan"],
+    pengalaman: [
+      "Jambore Standupindo, Yogyakarta (2026)",
+      "Kartinian Standupindo, Jakarta (2026)",
+      "Opening Act Dipandu Dunia Asmara, Yogyakarta (2026)",
+      "Festival of Nggambleh, Yogyakarta (2025)",
+      "Unlabelled Pop Culture Psychology UII, Yogyakarta (2025)"
+    ],
+    video: [
+      { label: "Open mic Tilasawa 2025", url: "https://drive.google.com/file/d/1EoKAuADVziUu4bXxQYz_68JQsucvr9qP" },
+      { label: "FON 2025", url: "https://drive.google.com/file/d/153GFad7hJEu9UKd_LSTDY9ooktXLg_u6/view?usp=drivesdk" },
+      { label: "Kartinian Standupindo 2026", url: "https://drive.google.com/file/d/1b0buJsJdOg4bzwwEzzXnptaIMPwTMs9V/view?usp=drivesdk" }
+    ],
+    rate: { sekolah: { "7-10": 1500000, "15": 2500000 }, korporat: { "7-10": 2500000, "15": 3500000 } }
+  },
+  {
+    nama: "Zaen Kaiysar",
+    foto: "foto/zaen.jpg",
+    tagline: "Komika dengan cerita uniknya yang dibalut dengan sedikit kebohongan.",
+    sosmed: { instagram: "https://instagram.com/zaenkaiysar", tiktok: "https://tiktok.com/@zaenkaiysar" },
+    penonton: ["Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat"],
+    pengalaman: [
+      "Pemilik special show “Miskin Attitude”, Yogyakarta (2026)",
+      "Pemilik tur stand-up comedy show “Truene”, Lombok Timur dan Kota Mataram (2026)",
+      "Guest star event Hajatan Tawa AMIKOM, Yogyakarta (2026)",
+      "Line up FON, Yogyakarta (2025)",
+      "Guest star tunggal di event Veart UPNVYK, Yogyakarta (2025)"
+    ],
+    video: [
+      { label: "Potongan SUN Yogyakarta", url: "https://www.instagram.com/reel/DNdEXdiR_Cg/" },
+      { label: "Potongan open mic", url: "https://www.instagram.com/reel/DGpkfNkS_Dk/" },
+      { label: "Potongan lomba YUASA", url: "https://www.instagram.com/reel/DI06h5FyVEY/" }
+    ],
+    rate: { sekolah: { "7-10": 1750000, "15": 2000000 }, korporat: { "7-10": 2000000, "15": 2250000 } }
+  },
+  {
+    nama: "Ode Sensei",
+    foto: "foto/ode.jpg",
+    tagline: "Komedi storytelling tentang berkeliling Indonesia dan kehidupan antara bos & karyawan.",
+    sosmed: { instagram: "https://instagram.com/odetocomedy", tiktok: "https://tiktok.com/@odetocomedy" },
+    penonton: ["Pelajar (13–18 tahun)", "Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)", "Dewasa (40+ tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Opener tur SUCI 12 Kompas TV, Yogyakarta (2026)",
+      "Opener Priska Barusegu Pertigapuluhan, Gedung Usmar Ismail, Jakarta (2026)",
+      "Opener show stand-up comedy Truene, Lombok, NTB (2026)",
+      "Opener stand-up comedy Tumbuh, Pontianak, Kalbar (2026)",
+      "FON Standupindo Jogja, Yogyakarta (2024)"
+    ],
+    video: [
+      { label: "Potongan show tur SUCI 12 Kompas TV", url: "https://www.instagram.com/reel/Da_gvXPPJ13/" },
+      { label: "Potongan open mic Markas Comika", url: "https://www.instagram.com/reel/DZjv55zvtNu/" },
+      { label: "Potongan stand-up comedy Tumbuh Pontianak", url: "https://www.instagram.com/reel/DVnV29aCfxm/" }
+    ],
+    rate: { sekolah: { "7-10": 1500000, "15": 2500000 }, korporat: { "7-10": 2500000, "15": 3500000 } }
+  },
+  {
+    nama: "Nawfil Fang",
+    foto: "foto/nawfil.jpg",
+    tagline: "Saya adalah ahlinya komedi aneh wibu untuk depan anak-anak dan remaja, fisik kurus ahlinya inferioritas dan pujian-pujian korporat.",
+    sosmed: { instagram: "https://instagram.com/ahmad_nawfil", tiktok: "https://tiktok.com/@ahmad_nawfil" },
+    penonton: ["Pelajar (13–18 tahun)", "Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "FON (2025)",
+      "Opener Dipandu Dunia Asmara Purwokerto (2026)",
+      "Guest star Pandu Fest Day acara Pesantren Hidayatullah Yogyakarta (2026)",
+      "Gathering korporat Mandiri AXA (2026)",
+      "Spike Fest ONIC (2026)"
+    ],
+    video: [
+      { label: "Untuk anak-anak", url: "https://www.instagram.com/reel/DewZfQjz36V/" },
+      { label: "Untuk korporat", url: "https://www.instagram.com/reel/DW-ilK7E1NN/" },
+      { label: "Esport", url: "https://www.instagram.com/reel/DZktT3SPKHu/" }
+    ],
+    rate: { sekolah: { "7-10": 500000, "15": 750000 }, korporat: { "7-10": 750000, "15": 1000000 } }
+  },
+  {
+    nama: "Murti Raja",
+    foto: "foto/raja.jpg",
+    tagline: "Air susu dibalas airator.",
+    sosmed: { instagram: "https://instagram.com/murtiraja_" },
+    penonton: ["Pelajar (13–18 tahun)", "Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)", "Dewasa (40+ tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Juara 2 Liga Tawa season 3, Yogyakarta (2025)",
+      "Festival of Nggambleh, Yogyakarta (2025)",
+      "Konser URUP by Kunto Aji (2025)",
+      "Gathering AXA Mandiri, Yogyakarta (2026)",
+      "Wayang Jogja Night Carnival, Yogyakarta (2024)"
+    ],
+    video: [
+      { label: "Materi superhero", url: "https://www.instagram.com/reel/DQxyuWEkm2L/" },
+      { label: "Roasting", url: "https://www.instagram.com/reel/DRm9Xzekkm4/" },
+      { label: "Grand final Liga Tawa", url: "https://www.instagram.com/reel/DSAVG3-Em-6/" }
+    ],
+    rate: { sekolah: { "7-10": 500000, "15": 500000 }, korporat: { "7-10": 750000, "15": 750000 } }
+  },
+  {
+    nama: "Teguh Nurwantara",
+    foto: "foto/toro.jpg",
+    tagline: "Saya adalah jebolan SUCA 4 Indosiar.",
+    sosmed: { instagram: "https://instagram.com/teguhnurwantara", tiktok: "https://tiktok.com/@teguhnurwantara" },
+    penonton: ["Pelajar (13–18 tahun)", "Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)", "Dewasa (40+ tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Dagelan Rebon (Juli 2026)",
+      "Dar Der Dor Show Solo (November 2025)",
+      "Bersua di Jogja (April 2024)",
+      "Jalan-jalan Happy 76 Jogja (Maret 2024)",
+      "Nrimo Ing Panggung Stand Up Show (Juli 2024)"
+    ],
+    video: [
+      { label: "Audisi SUCA 4", url: "https://vid.id/6eugql" },
+      { label: "Tentang mantan", url: "https://vid.id/cb6ewb" },
+      { label: "Covid", url: "https://youtu.be/Wjw8Wzgyc5A" }
+    ],
+    rate: { sekolah: { "7-10": 1500000, "15": 2500000 }, korporat: { "7-10": 3500000, "15": 5000000 } }
+  },
+  {
+    nama: "Andang Ristian",
+    foto: "foto/andang.jpeg",
+    tagline: "Saya adalah komika yang membahas keresahan kehidupan saya dengan gaya yang receh dan aman di segala umur karena materi clean dan tidak menyenggol siapapun, mari bersenang senang.",
+    sosmed: { instagram: "https://instagram.com/andangristian", tiktok: "https://tiktok.com/@andangristian" },
+    penonton: ["Pelajar (13–18 tahun)", "Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)", "Dewasa (40+ tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Standup Comedy Academy Indosiar (2017)",
+      "Ulang tahun GKR Hemas ke-70 (2022)",
+      "Somasi Community by Deddy Corbuzier (2025)",
+      "Awarding BPR BKK Wonogiri (2025)",
+      "Raker tahunan PT Farmasi Dexa Medica (2026)"
+    ],
+    video: [
+      { label: "Penampilan 1", url: "https://drive.google.com/file/d/15hsHewxA1VCcaqR3PJjSxH0Fj7DJBy4w/view?usp=drivesdk" },
+      { label: "Penampilan 2", url: "https://drive.google.com/file/d/1HoJUmW4E6LId69h6LyvErcD2ZcoSQGNH/view?usp=drivesdk" },
+      { label: "Penampilan 3", url: "https://drive.google.com/file/d/1DJ4OxsmTI3iHT0T2RrnKvzaGz6TCjaGY/view?usp=drivesdk" }
+    ],
+    rate: { sekolah: { "7-10": 1000000, "15": 1500000 }, korporat: { "7-10": 2500000, "15": 3500000 } }
+  },
+  {
+    nama: "Juno Wisnu",
+    foto: "foto/juno.jpg",
+    tagline: "Saya ahli mengeluh.",
+    sosmed: { instagram: "https://instagram.com/herjunowisnu17", tiktok: "https://tiktok.com/@herjunowisnu17" },
+    penonton: ["Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)", "Dewasa (40+ tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Liga Tawa 2 (2024)",
+      "Liga Tawa 3 (2025)",
+      "FON Akhir Tahun"
+    ],
+    video: [
+      { label: "Penampilan 1", url: "https://www.instagram.com/reel/DGsQ_3ZynNO/" },
+      { label: "Penampilan 2", url: "https://www.instagram.com/reel/DJW-5eJS7Ib/" },
+      { label: "Penampilan 3", url: "https://www.instagram.com/reel/DFpJ6HtyMBL/" }
+    ],
+    rate: { sekolah: { "7-10": 450000, "15": 500000 }, korporat: { "7-10": 500000, "15": 550000 } }
+  },
+  {
+    nama: "Pradipta Putra Noordiansyah",
+    foto: "foto/dipta.jpg",
+    tagline: "Style komedi saya ceria, happy-happy, storytelling.",
+    sosmed: { instagram: "https://instagram.com/diptacompany" },
+    penonton: ["Pelajar (13–18 tahun)", "Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)", "Dewasa (40+ tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Final Liga Tawa, Standupindo Jogja (2026)",
+      "Guest stand-up comedy, Pandu Fest Day, Ponpes Hidayatullah Sleman (2026)",
+      "Guest stand-up comedy, PT Karya Inspirasi Indonesia (2026)",
+      "Guest stand-up comedy, Sleman Expo Creative UMKM (2026)",
+      "Guest stand-up comedy, Bantul Expo UMKM (2026)"
+    ],
+    video: [
+      { label: "Man robbuka", url: "https://www.instagram.com/reel/DdM_lc2pb16/" },
+      { label: "Ikan hiu", url: "https://www.instagram.com/reel/DerV4SXTxkH/" },
+      { label: "Salam timnas", url: "https://www.instagram.com/reel/Ddn0bpGpU0U/" }
+    ],
+    rate: { sekolah: { "7-10": 500000, "15": 500000 }, korporat: { "7-10": 500000, "15": 500000 } }
+  },
+  {
+    nama: "Ahmad Fariyd",
+    foto: "foto/faryd.jpg",
+    tagline: "Komedi saya storytelling ala Makassar, asoy.",
+    sosmed: { instagram: "https://instagram.com/ahmedfariyd.ms" },
+    penonton: ["Pelajar (13–18 tahun)", "Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Festival of Nggambleh, Yogyakarta (2025)"
+    ],
+    video: [
+      { label: "Penampilan 1", url: "https://drive.google.com/file/d/1zaNHG0Aax-czvd0XNwTT1XSUla98ltUy/view?usp=drivesdk" },
+      { label: "Penampilan 2", url: "https://drive.google.com/file/d/1Wao_vvIR0oYNAWZoyI1RteNy9jWZh48V/view?usp=drivesdk" },
+      { label: "Penampilan 3", url: "https://www.instagram.com/reel/DZPuC9APDjU/" }
+    ],
+    rate: { sekolah: { "7-10": 500000, "15": 750000 }, korporat: { "7-10": 850000, "15": 1000000 } }
+  },
+  {
+    nama: "Ryan Elqudsy",
+    foto: "foto/ryan.jpg",
+    tagline: "Storytelling all about hikmah.",
+    sosmed: { instagram: "https://instagram.com/syafrianhidayat", tiktok: "https://tiktok.com/@syafrianhidayat" },
+    penonton: ["Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)", "Dewasa (40+ tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "FON Standupindo Jogja (2024)",
+      "Stand Up Nite Yogyakarta (2025)",
+      "Opening act tur stand-up Titik-Titik by Dzawin Nur, Yogyakarta (2025)",
+      "Opening act stand-up comedy Total Politik Goes to UGM (2026)",
+      "Stand-up comedy Padhang Bulan Fest, Jogja Expo Center (2026)"
+    ],
+    video: [
+      { label: "Penampilan 1", url: "https://www.instagram.com/reel/DeG2BVCBNn6/" },
+      { label: "Penampilan 2", url: "https://www.instagram.com/reel/Da7KVa7x7f-/" },
+      { label: "Penampilan 3", url: "https://www.instagram.com/reel/DVSkXjUEdQZ/" }
+    ],
+    rate: { sekolah: { "7-10": 1000000, "15": 1500000 }, korporat: { "7-10": 2500000, "15": 3500000 } }
+  },
+  {
+    nama: "Sanpras",
+    foto: "foto/sanpras.jpg",
+    tagline: "Pria asal Jogja dengan pembahasan yang ber“bobot”.",
+    sosmed: { instagram: "https://instagram.com/sanpras_", tiktok: "https://tiktok.com/@sanpras_" },
+    penonton: ["Pelajar (13–18 tahun)", "Mahasiswa (19–24 tahun)", "Dewasa muda (25–40 tahun)", "Dewasa (40+ tahun)"],
+    event: ["Sekolah / Kampus", "Seminar / Workshop", "Festival / Perayaan", "Gathering Korporat", "Acara Pemerintah"],
+    pengalaman: [
+      "Golden Ticket SUCI 12 Kompas TV (2026)",
+      "Penampil di Akiba Stage, Anime Festival Asia Indonesia, Jakarta (2025)",
+      "Juara Somasi Community di YouTube Channel Deddy Corbuzier (2024)",
+      "Penampil di Jambore Standupindo 2024, Yogyakarta (2024)",
+      "Penampil utama di Spesial Show “Lorem Ipsum”, Yogyakarta (2023)"
+    ],
+    video: [
+      { label: "Gigs korporat Greenfields", url: "https://www.youtube.com/watch?v=dVHCzDX7suU" },
+      { label: "Potongan open mic", url: "https://www.instagram.com/reels/DXQxNcUDehg/" },
+      { label: "Somasi Community Deddy Corbuzier", url: "https://www.youtube.com/watch?v=sC13tsUrVq8&t=439s" }
+    ],
+    rate: { sekolah: { "7-10": 2250000, "15": 2750000 }, korporat: { "7-10": 3750000, "15": 4500000 } }
+  }
+  // Untuk menambah komika: salin satu blok { ... }, beri koma, lalu ganti isinya.
+];
+
+/* Judul kategori rate card (sesuaikan dengan template PDF) */
+const KATEGORI = {
+  sekolah:  "Sekolah/Seminar/Perayaan",
+  korporat: "EO / Government / Korporat"
+};
+
+/* Tipe acara untuk pencarian klien, dan rate card kategori mana yang dipakai */
+const TIPE_EVENT = {
+  "Sekolah / Kampus":    "sekolah",
+  "Seminar / Workshop":  "sekolah",
+  "Gathering Korporat":  "korporat",
+  "Acara Pemerintah":    "korporat",
+  "Festival / Perayaan": "sekolah"
+};
+
+/* =====================================================
+   3. KODE HALAMAN (tidak perlu diubah)
+   ===================================================== */
+const $ = (s, r = document) => r.querySelector(s);
+const esc = t => String(t ?? "").replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const rp = n => typeof n === "number" ? new Intl.NumberFormat("id-ID", { style:"currency", currency:"IDR", maximumFractionDigits:0 }).format(n) : "Hubungi kami";
+const SOS = { instagram:"Instagram", tiktok:"TikTok", youtube:"YouTube", x:"X", facebook:"Facebook", spotify:"Spotify" };
+const sosBtns = o => Object.entries(o || {}).filter(([, u]) => u).map(([k, u]) =>
+  `<a class="btn" href="${esc(u)}" target="_blank" rel="noopener">${SOS[k] || esc(k)}</a>`).join("");
+const waLink = (txt) => `https://wa.me/${KOMUNITAS.wa}?text=${encodeURIComponent(txt)}`;
+
+const base = KOMIKA[0];
+KOMIKA.sort((x, y) => x.nama.localeCompare(y.nama, "id"));  // urutan tampil: abjad A–Z, tidak bergantung urutan data
+const lengkap = k => ({ ...base, ...k });
+
+function dummy(nama, i) {
+  const c = ["#ffd23f","#7bdff2","#b2f7ef","#f7d6e0","#c9b6ff","#ffb38a","#a8e6a1","#ffa8a8"][i % 8];
+  const ini = (nama || "?").split(" ").map(w => w[0]).slice(0, 2).join("").toUpperCase();
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 500"><rect width="400" height="500" fill="${c}"/><circle cx="200" cy="190" r="72" fill="#14171f" opacity=".85"/><path d="M60 500c0-110 62-170 140-170s140 60 140 170z" fill="#14171f" opacity=".85"/><text x="200" y="208" font-family="sans-serif" font-weight="800" font-size="56" text-anchor="middle" fill="${c}">${ini}</text></svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+function fb(im) { im.onerror = null; im.src = dummy(im.dataset.n, +im.dataset.i); }  // foto belum ada: pakai dummy
+
+function hero() {
+  return `<section id="s1" data-title="Beranda">
+    <h1>Rate Card Komika ${esc(KOMUNITAS.nama)}</h1>
+    <p class="lead"><strong style="color:var(--ink)">${esc(KOMUNITAS.judul)}</strong><br>${esc(KOMUNITAS.deskripsi)}</p>
+    <div class="row"><a class="btn" href="#s2">Lihat semua profil</a><button class="btn" type="button" onclick="openDrawer()">Cari komika sesuai kebutuhanmu</button></div>
+    <p class="hint">Gulir ke bawah atau tekan tombol panah ↑ ↓ untuk berpindah segmen.</p>
+  </section>`;
+}
+
+function profil(raw, i) {
+  const k = lengkap(raw), n = i + 2;
+  const tabs = Object.keys(KATEGORI);
+  return `<section id="s${n}" class="${i % 2 ? "" : "alt"}" data-title="${esc(k.nama)}">
+    <div class="profil">
+      <figure class="pic"><img src="${esc(raw.foto || dummy(raw.nama, i))}" alt="Foto ${esc(k.nama)}" data-n="${esc(raw.nama)}" data-i="${i}" onerror="fb(this)"></figure>
+      <div>
+        <div class="head">
+          <div><h2 class="nama">${esc(k.nama)}</h2><p class="tag">${esc(k.tagline)}</p></div>
+          <div class="row"><button class="btn" type="button" onclick="openDrawer()">← Cari komika lain</button>${sosBtns(k.sosmed)}</div>
+        </div>
+        <div class="grid">
+          <div class="box"><h3>Demografi usia penonton</h3>
+            <div class="row">${k.penonton.map(e => `<span class="chip">${esc(e)}</span>`).join("")}</div>
+          </div>
+          <div class="box"><h3>Bisa tampil di event</h3>
+            <div class="row">${k.event.map(e => `<span class="chip">${esc(e)}</span>`).join("")}</div>
+          </div>
+          <div class="box"><h3>5 pengalaman terbaik terkini</h3>
+            <ul class="exp">${k.pengalaman.slice(0, 5).map(p => `<li>${esc(p)}</li>`).join("")}</ul>
+          </div>
+          <div class="box"><h3>Link penampilan</h3>
+            <div class="row">${k.video.map(v => `<a class="btn" href="${esc(v.url)}" target="_blank" rel="noopener">▶ ${esc(v.label)}</a>`).join("")}</div>
+          </div>
+          <div class="box rate"><h3>Rate card stand-up comedy</h3>
+            <div class="tabs" role="tablist">${tabs.map((t, j) => `<button role="tab" aria-selected="${j === 0}" data-tab="${t}">${esc(KATEGORI[t])}</button>`).join("")}</div>
+            ${tabs.map((t, j) => `<div class="rates" data-panel="${t}" ${j ? "hidden" : ""}>
+              <div class="price"><small>Durasi 7–10 menit</small><strong data-v="${k.rate?.[t]?.["7-10"] || 0}">${rp(k.rate?.[t]?.["7-10"])}</strong></div>
+              <div class="price"><small>Durasi 15 menit</small><strong data-v="${k.rate?.[t]?.["15"] || 0}">${rp(k.rate?.[t]?.["15"])}</strong></div>
+            </div>`).join("")}
+            <p class="note">Harga belum termasuk transportasi & akomodasi di luar DIY. Dapat berubah sesuai kebutuhan acara.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>`;
+}
+
+function kontak() {
+  const n = KOMIKA.length + 2;
+  return `<section id="s${n}" data-title="Kontak">
+    <div class="kontak">
+      <div class="foto" ${KOMUNITAS.foto ? `style="background-image:url('${esc(KOMUNITAS.foto)}')"` : ""}></div>
+      <div class="info">
+        <h2 class="nama">Ayo bikin acaramu lebih seru.</h2>
+        <p style="margin-top:20px"><b>Telepon / WhatsApp:</b> <a href="tel:${esc(KOMUNITAS.hp)}">${esc(KOMUNITAS.hp)}</a></p>
+        ${KOMUNITAS.email ? `<p><b>Email:</b> <a href="mailto:${esc(KOMUNITAS.email)}">${esc(KOMUNITAS.email)}</a></p>` : ""}
+        <p><b>Lokasi:</b> ${esc(KOMUNITAS.alamat)}</p>
+        <div class="row" style="margin-top:16px">${sosBtns(KOMUNITAS.sosmed)}</div>
+        <form id="form">
+          <select name="komika"><option>Belum menentukan komika</option>${KOMIKA.map(k => `<option>${esc(k.nama)}</option>`).join("")}</select>
+          <select name="durasi"><option>Durasi 7–10 menit</option><option>Durasi 15 menit</option></select>
+          <input name="nama" placeholder="Nama / instansi" required>
+          <input name="acara" placeholder="Nama acara & tanggal" required>
+          <textarea name="pesan" rows="3" placeholder="Komika yang diminta, durasi, dan lokasi"></textarea>
+          <button class="btn pri" type="submit" style="justify-content:center">Kirim lewat WhatsApp</button>
+        </form>
+        <footer>© ${new Date().getFullYear()} ${esc(KOMUNITAS.nama)}</footer>
+      </div>
+    </div>
+  </section>`;
+}
+
+$("#app").innerHTML = hero() + KOMIKA.map(profil).join("") + kontak();
+
+$("#app").firstElementChild.id = "hero";
+const secs = [...document.querySelectorAll("section")];
+$("#nav").innerHTML = secs.map((s, i) => `<a href="#${s.id}" aria-label="${esc(s.dataset.title)}"><span>${esc(s.dataset.title)}</span></a>`).join("");
+const dots = [...document.querySelectorAll("#nav a")];
+if (secs.length > 14) $("#nav").style.display = "none";  // terlalu banyak titik: pakai pencarian
+
+/* interaksi tambahan */
+const reduce = matchMedia("(prefers-reduced-motion:reduce)").matches;
+function countUp(el) {
+  const v = +el.dataset.v; if (!v || reduce) return;
+  const t0 = performance.now();
+  (function f(t) { const p = Math.min(1, (t - t0) / 700); el.textContent = rp(Math.round(v * (1 - Math.pow(1 - p, 3)))); if (p < 1) requestAnimationFrame(f); })(t0);
+}
+$("#fab").href = "#s" + secs.length;
+const prog = $("#prog");
+addEventListener("scroll", () => prog.style.width = scrollY / (document.documentElement.scrollHeight - innerHeight) * 100 + "%", { passive: true });
+const h = $("#hero");
+h.addEventListener("mousemove", e => { const r = h.getBoundingClientRect(); h.style.setProperty("--mx", (e.clientX - r.left) + "px"); h.style.setProperty("--my", (e.clientY - r.top) + "px"); });
+document.querySelectorAll(".pic").forEach(p => {
+  p.addEventListener("mousemove", e => { const r = p.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5; p.style.transform = `perspective(700px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg)`; });
+  p.addEventListener("mouseleave", () => p.style.transform = "");
+});
+/* pencarian komika */
+const F = { durasi: "7-10", event: "", budget: 0, sort: "abjad" };
+const OPSI = {
+  durasi: [["7-10", "7–10 menit"], ["15", "15 menit"]],
+  event:  [["", "Semua tipe"], ...Object.keys(TIPE_EVENT).map(t => [t, t])],
+  budget: [[0, "Semua budget"], [1, "Di bawah Rp1.500.000"], [2, "Rp1.500.000 – Rp3.000.000"], [3, "Di atas Rp3.000.000"]],
+  sort:   [["abjad", "Abjad A–Z"], ["murah", "Termurah"], ["mahal", "Termahal"]]
+};
+const RANGE = [null, [0, 1499999], [1500000, 3000000], [3000001, Infinity]];
+const JUDUL = { durasi: "Durasi penampilan", event: "Tipe acara", budget: "Budget", sort: "Urutkan" };
+$("#filters").innerHTML = Object.keys(OPSI).map(g => `<div class="fg"><h3>${JUDUL[g]}</h3><div class="row">${OPSI[g].map(([v, l]) => `<button type="button" class="opt" data-g="${g}" data-v="${esc(v)}">${esc(l)}</button>`).join("")}</div></div>`).join("") + `<button class="btn" type="button" id="reset">Reset filter</button>`;
+
+function cari() {
+  const list = KOMIKA.map((raw, i) => {
+    const k = lengkap(raw);
+    if (F.event && !k.event.includes(F.event)) return null;
+    const kats = F.event ? [TIPE_EVENT[F.event]] : Object.keys(KATEGORI);
+    const v = kats.map(c => k.rate?.[c]?.[F.durasi]).filter(x => typeof x === "number");
+    const p = v.length ? Math.min(...v) : null;
+    const r = RANGE[F.budget];
+    if (r && (p === null || p < r[0] || p > r[1])) return null;
+    return { raw, i, k, p };
+  }).filter(Boolean);
+  const nm = (a, b) => a.raw.nama.localeCompare(b.raw.nama, "id");
+  if (F.sort === "abjad") list.sort(nm);
+  if (F.sort === "murah") list.sort((a, b) => ((a.p ?? Infinity) - (b.p ?? Infinity)) || nm(a, b));
+  if (F.sort === "mahal") list.sort((a, b) => ((b.p ?? -1) - (a.p ?? -1)) || nm(a, b));
+  $("#hasil").innerHTML = list.length ? list.map(({ raw, i, k, p }) => `<button class="res" data-go="s${i + 2}"><img src="${esc(raw.foto || dummy(raw.nama, i))}" alt="" data-n="${esc(raw.nama)}" data-i="${i}" onerror="fb(this)"><span><b>${esc(raw.nama)}</b><small>${esc(k.tagline)}</small><em>${p === null ? "Hubungi kami" : (F.event ? "" : "Mulai ") + rp(p)}</em></span></button>`).join("")
+    : `<p class="kosong">Belum ada komika yang cocok. Coba longgarkan budget atau tipe acara.</p>`;
+  $("#jumlah").textContent = `${list.length} dari ${KOMIKA.length} komika cocok · harga untuk durasi ${F.durasi === "15" ? "15" : "7–10"} menit`;
+  document.querySelectorAll(".opt").forEach(b => b.setAttribute("aria-pressed", String(F[b.dataset.g]) === b.dataset.v));
+}
+const dr = $("#drawer");
+function openDrawer() { dr.hidden = false; document.body.style.overflow = "hidden"; cari(); }
+function closeDrawer() { dr.hidden = true; document.body.style.overflow = ""; }
+$("#finder").addEventListener("click", e => {
+  const o = e.target.closest(".opt");
+  if (o) { F[o.dataset.g] = o.dataset.g === "budget" ? +o.dataset.v : o.dataset.v; cari(); return; }
+  if (e.target.id === "reset") { Object.assign(F, { durasi: "7-10", event: "", budget: 0, sort: "abjad" }); cari(); return; }
+  const b = e.target.closest("[data-go]");
+  if (b) {
+    closeDrawer();
+    const sec = document.getElementById(b.dataset.go);
+    sec.scrollIntoView();
+    if (F.event) sec.querySelector(`[data-tab="${TIPE_EVENT[F.event]}"]`)?.click();
+  }
+});
+dr.addEventListener("click", e => { if (e.target === dr) closeDrawer(); });
+addEventListener("keydown", e => { if (e.key === "Escape") closeDrawer(); });
+
+/* tab kategori rate card */
+document.querySelectorAll(".tabs").forEach(t => t.addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  const sec = t.closest(".rate");
+  t.querySelectorAll("button").forEach(x => x.setAttribute("aria-selected", x === b));
+  sec.querySelectorAll("[data-panel]").forEach(p => p.hidden = p.dataset.panel !== b.dataset.tab);
+  sec.querySelectorAll(".rates:not([hidden]) strong").forEach(countUp);
+}));
+
+/* segmen aktif + animasi bar demografi */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  const i = secs.indexOf(e.target);
+  dots.forEach((d, j) => d.classList.toggle("on", i === j));
+  $("#count").textContent = `${i + 1} / ${secs.length}`;
+  e.target.classList.add("in");
+  e.target.querySelectorAll(".rates:not([hidden]) strong").forEach(countUp);
+  $("#fabs").classList.toggle("hide", i === secs.length - 1);
+}), { threshold: .5 });
+secs.forEach(s => io.observe(s));
+
+/* navigasi keyboard */
+addEventListener("keydown", e => {
+  if (/INPUT|TEXTAREA/.test(document.activeElement.tagName)) return;
+  const cur = dots.findIndex(d => d.classList.contains("on"));
+  const go = j => { e.preventDefault(); secs[Math.max(0, Math.min(secs.length - 1, j))].scrollIntoView(); };
+  if (e.key === "ArrowDown" || e.key === "PageDown") go(cur + 1);
+  if (e.key === "ArrowUp" || e.key === "PageUp") go(cur - 1);
+});
+
+/* form kontak -> WhatsApp */
+$("#form").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  window.open(waLink(`Halo ${KOMUNITAS.nama}, saya ${f.get("nama")}.\nAcara: ${f.get("acara")}\nKomika: ${f.get("komika")}\n${f.get("durasi")}\n${f.get("pesan")}`), "_blank");
+});
+</script>
+</body>
+</html>
